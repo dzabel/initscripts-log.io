@@ -1,8 +1,11 @@
 #!/bin/sh
 #
+# Startup script for Log.io Harvester
+#
 # chkconfig: - 12 88
 # description:  Log.io Server.
 # processname: log.io-server
+# config: /etc/log.io/server.conf
 
 # Source function library.
 . /etc/rc.d/init.d/functions
