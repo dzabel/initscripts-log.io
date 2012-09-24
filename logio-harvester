@@ -1,0 +1,64 @@
+#!/bin/sh
+#
+# chkconfig: - 13 87
+# description:  Log.io Harvester.
+# processname: log.io-harvester
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+LOGFILE="/var/log/log.io/harvester.log"
+PROG="/usr/local/bin/log.io-harvester"
+
+start(){
+	echo -n "Starting $PROG:"
+	nohup $PROG >$LOGFILE 2>&1 &
+	sleep 1;
+	RUNNING=`ps ax | grep -v grep | grep -c $PROG`
+	if [ $RUNNING -gt 0 ]; then
+		echo_success
+	else
+		echo_failure
+	fi
+	echo
+}
+
+
+stop(){
+	PID=`ps ax | grep -v grep | grep $PROG | cut -d\  -f 2`;
+	echo -n "Stopping $PROG:"
+	if [ "x$PID" != "x" ]; then
+		kill $PID;
+	fi
+	sleep 1;
+	RUNNING=`ps ax | grep -v grep | grep -c $PROG`
+        if [ $RUNNING -gt 0 ]; then
+                echo_failure
+        else
+                echo_success
+        fi
+	echo
+}
+
+restart(){
+    stop
+    start
+}
+
+
+
+case "$1" in
+    start)
+    	start
+    	;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart 
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 2
+esac
+
