@@ -1,0 +1,14 @@
+# to prevent git from changing lineendings and corrupt the store
+*.keystore 		binary
+
+# to prevent git from exporting these files using git archive
+.gitignore 		export-ignore
+.gitmodules 	export-ignore
+.gitattributes 	export-ignore
+
+# set correct line endings on unix shell scripts
+*.sh           	eol=lf
+logio-harvester           	eol=lf
+logio-server           	eol=lf
+*.jpif			eol=lf
+cm				eol=lf
