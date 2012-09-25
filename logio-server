@@ -16,7 +16,6 @@ PROG="/usr/local/bin/log.io-server"
 start(){
 	echo -n "Starting $PROG:"
 	nohup $PROG >$LOGFILE 2>&1 &
-	sleep 1;
 	RUNNING=`ps ax | grep -v grep | grep -c $PROG`
 	if [ $RUNNING -gt 0 ]; then
 		echo_success
@@ -28,12 +27,11 @@ start(){
 
 
 stop(){
-	PID=`ps ax | grep -v grep | grep $PROG | cut -d\  -f 2`;
+	PID=`ps x | grep -v grep | grep $PROG | awk '{print $1}'`;
 	echo -n "Stopping $PROG:"
 	if [ "x$PID" != "x" ]; then
 		kill $PID;
 	fi
-	sleep 1;
 	RUNNING=`ps ax | grep -v grep | grep -c $PROG`
         if [ $RUNNING -gt 0 ]; then
                 echo_failure
