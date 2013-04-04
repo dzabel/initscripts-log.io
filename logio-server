@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Startup script for Log.io Harvester
+# Startup script for Log.io Server
 #
 # chkconfig: - 12 88
 # description:  Log.io Server.
